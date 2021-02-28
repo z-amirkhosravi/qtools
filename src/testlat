@@ -1,0 +1,5 @@
+rm pricing.o
+rm base.o
+rm trunclat
+make trunclat
+./trunclat

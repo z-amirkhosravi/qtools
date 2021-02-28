@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "transform.h"
-#include "simple_mc.h"
+#include "base.h"
 #include "pricing.h"
 
 
@@ -52,6 +52,32 @@ static PyObject* PriceVanillaEuCallWrapper(PyObject *self, PyObject *args) {
     return retobj;
 }
 
+static PyObject* PriceAmericanCallWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanCall(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanPutWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanPut(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
 static PyObject* PriceVanillaEuPutWrapper(PyObject *self, PyObject *args) {
     double spot, time_to_expiry, strike, rate, vol, price;
     PyObject *retobj;
@@ -91,35 +117,14 @@ static PyObject* PriceDigitalEuPutWrapper(PyObject *self, PyObject *args) {
     return retobj;
 }
 
-
-static PyObject* ctransform(PyObject *self, PyObject *args) {
-    PyObject *fl_list;
-    std::vector <double> dvec, dvec2;
-    
-
-    if (!PyArg_ParseTuple(args, "O", &fl_list))
-            return nullptr;
-    
-    dvec = doublevec_from_floatlist(fl_list);
-    
-    dvec2 = cfunc(dvec);
-
-    fl_list = floatlist_from_doublevec(dvec2);
-    return fl_list;
-}
-
-static PyObject* test(PyObject *self, PyObject *args) {
-    std::cout << "hello\n";
-    Py_RETURN_NONE;
-}
-
-
 static PyMethodDef qtools_methods[] = {
     { "PriceVanillaEuCall", PriceVanillaEuCallWrapper, METH_VARARGS, "Price a vanilla European call with simple Monte Carlo" },
     { "PriceVanillaEuPut", PriceVanillaEuPutWrapper, METH_VARARGS, "Price a vanilla European put with simple Monte Carlo" },
     { "PriceDigitalEuCall", PriceDigitalEuCallWrapper, METH_VARARGS, "Price a digital European call with simple Monte Carlo" },
     { "PriceDigitalEuPut", PriceDigitalEuPutWrapper, METH_VARARGS, "Price a digital European put with simple Monte Carlo" },
-    { NULL, NULL, 0, NULL }
+    { "PriceAmericanCall", PriceAmericanCallWrapper, METH_VARARGS, "Price an American call option with a binomial tree model" },
+    { "PriceAmericanPut", PriceAmericanPutWrapper, METH_VARARGS, "Price an American put option with a binomial tree model" },
+ { NULL, NULL, 0, NULL }
 };
 
 static struct PyModuleDef qtools = {
