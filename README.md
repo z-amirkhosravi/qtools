@@ -4,3 +4,5 @@ A collection of tools for quantitative finance. The backend is C/C++ with high-l
 
 Currently implemented are:
 - European option pricing using Black-Scholes formula, as well as simple Monte Carlo in Python and C++ for testing and comparison
+
+- Binomial tree model for derivative pricing, in particular vanilla American options. 
