@@ -1,9 +1,0 @@
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/transform.cpython-38-x86_64-linux-gnu.so
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/transform.py
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/EGG-INFO/dependency_links.txt
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/EGG-INFO/native_libs.txt
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/EGG-INFO/not-zip-safe
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/EGG-INFO/PKG-INFO
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/EGG-INFO/SOURCES.txt
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/EGG-INFO/top_level.txt
-/home/zavosh/anaconda3/lib/python3.8/site-packages/transform-0.0.0-py3.8-linux-x86_64.egg/__pycache__/transform.cpython-38.pyc
