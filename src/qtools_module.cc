@@ -1,8 +1,8 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
-
 #include <iostream>
 #include <vector>
+
 #include "transform.h"
 #include "base.h"
 #include "pricing.h"

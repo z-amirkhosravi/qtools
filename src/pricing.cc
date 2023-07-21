@@ -35,7 +35,7 @@ CallValueFromNormal::CallValueFromNormal(double spot_, double time_to_expiry_, d
 {
      drift = rate - (vol * vol) / 2;
      step_std = sqrt(time_to_expiry) * vol;
-     threshold = (log(strike) - log(spot) - drift * time_to_expiry) / step_std;
+     // threshold = (log(strike) - log(spot) - drift * time_to_expiry) / step_std;
      base_price_factor = spot * exp( drift * time_to_expiry);
  }
 
@@ -53,7 +53,7 @@ PutValueFromNormal::PutValueFromNormal(double spot_, double time_to_expiry_, dou
 {
      drift = rate - (vol * vol) / 2;
      step_std = sqrt(time_to_expiry) * vol;
-     threshold = (log(strike) - log(spot) - drift * time_to_expiry) / step_std;
+     // threshold = (log(strike) - log(spot) - drift * time_to_expiry) / step_std;
      base_price_factor = spot * exp( drift * time_to_expiry);
  }
 
@@ -102,7 +102,7 @@ double DigitalCallValueFromNormal::eval(double x) const {
 double PriceVanillaEuCall(double spot, double time_to_expiry, double strike, double rate, double vol, long num_rounds) {
     CallValueFromNormal payoff(spot, time_to_expiry, strike, rate, vol);
  
-    return SimpleMC(payoff, num_rounds) * exp(-rate * time_to_expiry);  
+    return SimpleMC(payoff, num_rounds) * exp(-rate * time_to_expiry);    
 }
 
 double PriceVanillaEuPut(double spot, double time_to_expiry, double strike, double rate, double vol, long num_rounds) {

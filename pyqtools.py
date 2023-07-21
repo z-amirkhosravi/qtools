@@ -84,7 +84,7 @@ def SimpleMCEuCall(S0, tau, K, r, sigma, M):
     """
     mu = r - (sigma ** 2) / 2                              # drift with Ito correction factor
     t0 = np.sqrt(tau) * sigma                              # standard deviation of approximating Gaussian
-    th = (np.log(K) - np.log(S0) - mu * tau) / t0          # threshold that log(K) has to pass for payoff
+    # th = (np.log(K) - np.log(S0) - mu * tau) / t0          # threshold that log(K) has to pass for payoff
     R = S0 * np.exp( mu * tau)                               # non-stochastic factor of eventual price
 
     E = 0
@@ -112,7 +112,7 @@ def SimpleMCEuPut(S0, tau, K, r, sigma, M):
     """
     mu = r - (sigma ** 2) / 2                              # drift with Ito correction factor
     t0 = np.sqrt(tau) * sigma                              # standard deviation of approximating Gaussian
-    th = (np.log(K) - np.log(S0) - mu * tau) / t0          # threshold that log(K) has to pass for payoff
+    # th = (np.log(K) - np.log(S0) - mu * tau) / t0          # threshold that log(K) has to pass for payoff
     R = S0 * np.exp( mu * tau)                               # non-stochastic factor of eventual price
 
     E = 0
