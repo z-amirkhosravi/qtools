@@ -93,13 +93,33 @@ std::vector<double> Lattice::get_terminal(void) {
   return points.back();
 }
 
-void Lattice::AdditiveForwardPass(double seed, double drift_delta, double stoch_delta) {
+// void Lattice::AdditiveForwardPass(double seed, double drift_delta, double stoch_delta) {
+//     int n = points.size();
+//     points[0][0] = seed;
+//     for (int k = 0; k < n - 1 ; k++) { 
+// 	for (int i = 0; i < k + 1; i++) 
+// 	    points[k+1][i] = points[k][i] + drift_delta - stoch_delta;
+//         points[k+1][k+1] = points[k][k] + drift_delta + stoch_delta;
+//     }
+// }
+
+void Lattice::AdditiveForwardPass(double seed, double logu, double logd) {
     int n = points.size();
     points[0][0] = seed;
     for (int k = 0; k < n - 1 ; k++) { 
 	for (int i = 0; i < k + 1; i++) 
-	    points[k+1][i] = points[k][i] + drift_delta - stoch_delta;
-        points[k+1][k+1] = points[k][k] + drift_delta + stoch_delta;
+	    points[k+1][i] = points[k][i] + logd;
+        points[k+1][k+1] = points[k][k] + logu;
+    }
+}
+
+void Lattice::AdditiveForwardPass(double seed, double logu) {
+    int n = points.size();
+    points[0][0] = seed;
+    for (int k = 0; k < n - 1 ; k++) { 
+	for (int i = 0; i < k + 1; i++) 
+	    points[k+1][i] = points[k][i] - logu;
+        points[k+1][k+1] = points[k][k] + logu;
     }
 }
 

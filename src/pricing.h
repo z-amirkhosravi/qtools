@@ -83,6 +83,24 @@ double PriceAmericanCall(double spot, double time_to_expiry, double strike, doub
 
 double PriceAmericanPut(double spot, double time_to_expiry, double strike, double rate, double vol, long tree_depth); 
 
+double PriceAmericanCall_Tian(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American call using the binomial model from the 1993 paper:
+// "A Modified Lattice Approach to Option Pricing" by Yison Tian
+
+double PriceAmericanPut_Tian(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American put using Tian's binomial model, as above
+
+double PriceAmericanCall_CRR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American call using the Cox-Ross-Rubinstein model
+
+double PriceAmericanPut_CRR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American put using the Cox-Ross-Rubinstein model
+
+double PriceAmericanCall_Trig(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American call using the Trigeorgis binomial model
+
+double PriceAmericanPut_Trig(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American put using the Trigeorgis binomial model
 
 
 #endif

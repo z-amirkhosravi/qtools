@@ -117,6 +117,85 @@ static PyObject* PriceDigitalEuPutWrapper(PyObject *self, PyObject *args) {
     return retobj;
 }
 
+static PyObject* PriceAmericanCallTianWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanCall_Tian(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanPutTianWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanPut_Tian(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanCallCRRWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanCall_CRR(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanPutCRRWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanPut_CRR(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanCallTrigWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanCall_Trig(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanPutTrigWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanPut_Trig(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+
 static PyMethodDef qtools_methods[] = {
     { "PriceVanillaEuCall", PriceVanillaEuCallWrapper, METH_VARARGS, "Price a vanilla European call with simple Monte Carlo" },
     { "PriceVanillaEuPut", PriceVanillaEuPutWrapper, METH_VARARGS, "Price a vanilla European put with simple Monte Carlo" },
@@ -124,6 +203,12 @@ static PyMethodDef qtools_methods[] = {
     { "PriceDigitalEuPut", PriceDigitalEuPutWrapper, METH_VARARGS, "Price a digital European put with simple Monte Carlo" },
     { "PriceAmericanCall", PriceAmericanCallWrapper, METH_VARARGS, "Price an American call option with a binomial tree model" },
     { "PriceAmericanPut", PriceAmericanPutWrapper, METH_VARARGS, "Price an American put option with a binomial tree model" },
+    { "PriceAmericanCallTian", PriceAmericanCallTianWrapper, METH_VARARGS, "Price an American call with Tian's binomial model" },
+    { "PriceAmericanPutTian", PriceAmericanPutTianWrapper, METH_VARARGS, "Price an American put with Tian's binomial model" },
+    { "PriceAmericanCallCRR", PriceAmericanCallCRRWrapper, METH_VARARGS, "Price an American call option with the CRR binomial model" },
+    { "PriceAmericanPutCRR", PriceAmericanPutCRRWrapper, METH_VARARGS, "Price an American put option with the CRR binomial model" },
+    { "PriceAmericanCallTrig", PriceAmericanCallTrigWrapper, METH_VARARGS, "Price an American call option with the Trigeorgis binomial model" },
+    { "PriceAmericanPutTrig", PriceAmericanPutTrigWrapper, METH_VARARGS, "Price an American put option with the Trigeorgis binomial model" },
  { NULL, NULL, 0, NULL }
 };
 

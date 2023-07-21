@@ -56,6 +56,22 @@ def cBS(kappa, tau, r, sigma):
     d2 = d1 - sigma * np.sqrt(tau)
     return norm.cdf(d1) - kappa * math.exp(-r * tau) * norm.cdf(d2)
 
+def pBS(kappa, tau, r, sigma):
+    """
+    returns the ratio P / S between price P of a put option according to standard Black-Scholes and the price S of the underlying
+    
+    inputs:
+    
+    kappa: moneynesss, defined as K/S, where K is the strike price, S price of the underlying
+    tau:   time to maturity
+    r:     interest rate, assumed constant
+    sigma: volatility, assumed constant
+    """
+    
+    d1 = (-np.log(kappa) + (r + (sigma ** 2)/2 )*tau) / (sigma * np.sqrt(tau))
+    d2 = d1 - sigma * np.sqrt(tau)
+    return -norm.cdf(-d1) + kappa * math.exp(-r * tau) * norm.cdf(-d2)
+
 def BlackScholesEuCall(S, tau, K, r, sigma):
     """
     returns the price of a call option according to the standard Black-Scholes formula
@@ -69,6 +85,20 @@ def BlackScholesEuCall(S, tau, K, r, sigma):
     r:     interest rate, assumed constant
     """
     return S * cBS(K/S, tau, r, sigma)
+
+def BlackScholesEuPut(S, tau, K, r, sigma):
+    """
+    returns the price of a put option according to the standard Black-Scholes formula
+    
+    inputs:
+        
+    S:     price of the underlying
+    tau:   time to maturity
+    K:     strike price
+    sigma: volatility, assumed constant
+    r:     interest rate, assumed constant
+    """
+    return S * pBS(K/S, tau, r, sigma)
 
 
 def SimpleMCEuCall(S0, tau, K, r, sigma, M):
