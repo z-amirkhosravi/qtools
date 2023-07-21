@@ -1,8 +1,24 @@
-# qtools: Quantitative Tools
+# qtools: Quantitative Finance tools
 
-A collection of tools for quantitative finance. The backend is C/C++ with high-level interface in Python.
+This project implements some methods of option pricing in quantitative finance, using C++ and python. 
 
-Currently implemented are:
-- European option pricing using Black-Scholes formula, as well as simple Monte Carlo in Python and C++ for testing and comparison
+The methods are the binomial tree model, and simple Monte Carlo simulation. The code is mostly in C++, but wrapped as a Python package using Cython. 
 
-- Binomial tree model for derivative pricing, in particular vanilla American options. 
+To install as a Python package, clone the repository, enter the directory, and run:
+
+```
+rm -rf build
+python3 setup.py build
+```
+
+This compiles the C++ code and creates a python package called `qtools`, which can be installed by:
+
+```
+pip install .
+```
+
+After that the package can be imported in python:
+
+```
+from qtools import *
+```
