@@ -2,7 +2,7 @@
 
 This project implements some methods of option pricing from quantitative finance, using C++ and python. 
 
-The methods are the binomial tree model, and simple Monte Carlo simulation. The code is mostly in C++, but wrapped as a Python package using Cython. 
+The methods are several binomial tree models, and simple Monte Carlo simulation. The code is mostly in C++, but wrapped as a Python package using Cython. 
 
 To install the Python package, clone the repository, enter the directory, and run:
 
