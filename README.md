@@ -1,6 +1,6 @@
 # qtools: Quantitative Finance tools
 
-This project implements some methods of derivative pricing from quantitative finance, using C++ and python. There are several different binomial tree models, as well as Monte Carlo integration. The code is mostly in C++, but wrapped as a Python package using Cython. 
+This project implements some methods of derivative pricing from quantitative finance, using C++ and python. It contains several different binomial tree models, and one method using Monte Carlo integration. The code is mostly in C++, but wrapped as a Python package using Cython. 
 
 This was chiefly a two-fold exercise: to get some hands-on experience computing stuff in quant finance, and to figure out how to integrate C++ code into Python.
 
