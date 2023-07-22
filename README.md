@@ -30,7 +30,7 @@ Here's a very brief description of what binomial tree models are:
 In quantitative finance the price of some financial derivatives can be described using stochastic differential equations, and expressed in terms of Brownian motion. These can be regarded as continuous limits of discrete random walks, which are modeled by binomial trees. This allows approximating the price of derivatives by finite computations.
 
 The basic idea is as follows. There are $n$ i.i.d Bernoulli processes $X_1,X_2,\cdots, X_n$, which are each $1$ or $0$ with probability $p$ and $q$, respectively. Together with _up_ and _down_ factors $u$ and $d$, they determine the
-price $S_t$ of a stock at a discrete time $t$, with given $S_0$, by the rule:
+price $S_t$ of a stock at a discrete time $t$, given $S_0$, by the rule:
 
 $$S_t = \left\\{ \begin{array}{cc} u S_{t-1} & \text{ if }X_t = 1,\\\\ d S_{t-1} & \text{ if } X_t = 0.\end{array}\right.$$
 
