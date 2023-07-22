@@ -45,6 +45,6 @@ The implementation of the binomial tree model here abstracts this entire process
 For some instruments, such as European options, the value $V_t$ at time $t$ only depends on the distribution of the intrinsic value function $X_t$ at time $t=T$. In this case $V_0$ is just the (discounted) expected value of $V_T = X_T$ at time $t=0$.
 Since $X_T$ is a function of $S_T$, and $\log (S_T)$ is asssumed normally distributed, $V_0$ can be expressed as an integral against the normal probability distribution function. When the integral can be computed explicitly we get exact answers such as the famous Black-Scholes formula.
 
-When the integral needs to be approximated, aside from the binomial tree model, one can also make use of Monte Carlo integration, where integration is replaced with averaging over random numbers pulled from a normal distribution.
+When the integral needs to be approximated, aside from the binomial tree model, one can also use Monte Carlo integration, where integration is replaced with averaging over random numbers pulled from a normal distribution.
 
-This is simple enough to implement, and I've included both a C++ version in `qtools` and a Python version in `pyqtools.py`, if only for the sake of comparison. It was surprising to me how fast the C++ imeplementation turned out to be.
+This is simple enough to implement, and I've included both a C++ version in `qtools` and a Python version in `pyqtools.py`. It was surprising to me how fast the C++ imeplementation turned out to be.
