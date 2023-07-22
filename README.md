@@ -47,4 +47,4 @@ Since $X_T$ is a function of $S_T$, and $\log (S_T)$ is asssumed normally distri
 
 When the integral needs to be approximated, aside from the binomial tree model, one can also use Monte Carlo integration, where integration is replaced with averaging over random numbers pulled from a normal distribution.
 
-This is simple enough to implement, and I've included both a C++ version in `qtools` and a Python version in `pyqtools.py`. It was surprising to me how fast the C++ imeplementation turned out to be.
+This is simple enough to implement, and I've included both a C++ version in `qtools` and a Python version in `pyqtools.py`. It was surprising to me how fast the C++ implementation turned out to be.
