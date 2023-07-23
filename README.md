@@ -58,16 +58,22 @@ European Calls:
 -------------
 Monte Carlo (Python)      7.93494 (0.7059 seconds)
 Monte Carlo (C++)         7.93536 (0.0069 seconds)
-B-S formula (Python)      7.92371 (0.0004 seconds)
+Black-Scholes (Python)      7.92371 (0.0004 seconds)
 Leimer-Reisen             7.92366 (0.0256 seconds)
 
 European Puts:
 -------------
 Monte Carlo (Python)      2.51589 (0.6786 seconds)
 Monte Carlo (C++)         2.52208 (0.0069 seconds)
-B-S formula (Python)      2.51338 (0.0004 seconds)
+Black-Scholes (Python)      2.51338 (0.0004 seconds)
 Leimer-Reisen             2.51332 (0.0210 seconds)
 ```
+
+This is a comparison of some of the pricing methods in the package. 
+
+You can edit `test.py` to change the parameters. For example to improve accuracy you can try changing the depth of the binomial trees, or the number of Monte Carlo steps. 
+
+Note: The exact theoretical price of European options and American calls is given by the Black-Scholes formula. Checking the output of the models against that item can be a sort of sanity check.
 
 #  Binomial Tree Models
 
