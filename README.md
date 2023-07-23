@@ -45,6 +45,13 @@ Trigeorgis                7.92387 (0.0680 seconds)
 Jarrow-Rud                7.92396 (0.0680 seconds)
 Jabbour-Kramin-Young      7.92386 (0.0790 seconds)
 
+European Calls:
+-------------
+Monte Carlo (Python)      7.93494 (0.7059 seconds)
+Monte Carlo (C++)         7.93536 (0.0069 seconds)
+Black-Scholes (Python)    7.92371 (0.0004 seconds)
+Leimer-Reisen             7.92366 (0.0256 seconds)
+
 American Puts:
 -------------
 Ad hoc                    2.52629 (0.0791 seconds)
@@ -53,13 +60,6 @@ Cox-Ross-Rubinstein       2.52629 (0.0808 seconds)
 Trigeorgis                2.52629 (0.0811 seconds)
 Jarrow-Rud                2.52638 (0.0681 seconds)
 Jabbour-Kramin-Young      2.52628 (0.0673 seconds)
-
-European Calls:
--------------
-Monte Carlo (Python)      7.93494 (0.7059 seconds)
-Monte Carlo (C++)         7.93536 (0.0069 seconds)
-Black-Scholes (Python)    7.92371 (0.0004 seconds)
-Leimer-Reisen             7.92366 (0.0256 seconds)
 
 European Puts:
 -------------
@@ -73,7 +73,7 @@ This is a comparison of some of the pricing methods in the package.
 
 You can edit `test.py` to change the parameters. For example to improve accuracy you can try changing the depth of the binomial trees, or the number of Monte Carlo steps. 
 
-Note: The exact theoretical price of European options and American calls is given by the Black-Scholes formula. Checking the output of the models against that item can be a sort of sanity check.
+Note: The exact theoretical price of European calls/puts as well as American calls is given by the Black-Scholes formula. Checking the output of the models against that item can be a sort of sanity check. 
 
 #  Binomial Tree Models
 
