@@ -58,14 +58,14 @@ European Calls:
 -------------
 Monte Carlo (Python)      7.93494 (0.7059 seconds)
 Monte Carlo (C++)         7.93536 (0.0069 seconds)
-Black-Scholes (Python)      7.92371 (0.0004 seconds)
+Black-Scholes (Python)    7.92371 (0.0004 seconds)
 Leimer-Reisen             7.92366 (0.0256 seconds)
 
 European Puts:
 -------------
 Monte Carlo (Python)      2.51589 (0.6786 seconds)
 Monte Carlo (C++)         2.52208 (0.0069 seconds)
-Black-Scholes (Python)      2.51338 (0.0004 seconds)
+Black-Scholes (Python)    2.51338 (0.0004 seconds)
 Leimer-Reisen             2.51332 (0.0210 seconds)
 ```
 
