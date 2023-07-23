@@ -89,6 +89,10 @@ class Lattice {
     // NOTE 1: p and q are _not_ assumed to add to 1, because they may incorporate discounting and dividend factors.
     // NOTE 2: f should take log values as input, but must return actual (exponentiated) values.
     //
+
+    void MultiplicativeRollbackEU(Lattice &ref_lattice, double p, double q, FunctionClass &f);
+
+    // Same as MultiplicativeRollback(), except without comparing with intrinsic value.
 };
 
 // This function implements a simple Monte Carlo average. Given a function f and integer M, it returns the average

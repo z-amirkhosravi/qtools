@@ -308,4 +308,93 @@ double PriceAmericanPut_Trig(double spot, double time_to_expiry, double strike, 
 
 }
 
+double PriceAmericanCall_JKY(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
+  double h = time_to_expiry/N;
+
+  double nu = rate - sigma*sigma/2;
+  double p = 0.5 + sigma * sqrt(h) / (2*sqrt(4+sigma*sigma*h));
+  double logu = nu * h + (1-p)*sigma*sqrt(h)/sqrt(p*(1-p));
+  double logd = nu * h - p*sigma*sqrt(h)/sqrt(p*(1-p));
+
+  Lattice L(N+1), V(N+1);
+  L.AdditiveForwardPass(log(spot), logu, logd);
+   
+  CallValueFromLog call_value(strike);
+  V.MultiplicativeRollback(L, exp(-rate * h) * p, exp(-rate * h) * (1-p), call_value);
+  
+  return V.points[0][0];
+
+}
+
+double PriceAmericanPut_JKY(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
+  double h = time_to_expiry/N;
+
+  double nu = rate - sigma*sigma/2;
+  double p = 0.5 + sigma * sqrt(h) / (2*sqrt(4+sigma*sigma*h));
+  double logu = nu * h + (1-p)*sigma*sqrt(h)/sqrt(p*(1-p));
+  double logd = nu * h - p*sigma*sqrt(h)/sqrt(p*(1-p));
+
+  Lattice L(N+1), V(N+1);
+  L.AdditiveForwardPass(log(spot), logu, logd);
+   
+  PutValueFromLog put_value(strike);
+  V.MultiplicativeRollback(L, exp(-rate * h) * p, exp(-rate * h) * (1-p), put_value);
+  
+  return V.points[0][0];
+
+}
+
+double PriceEuropeanCall_LR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
+  double h = time_to_expiry/N;
+
+  double nu = rate - sigma*sigma/2;
+
+  double d1 = (log(spot/strike) + nu*time_to_expiry) / (sigma * sqrt(time_to_expiry));
+  double d2 = d1 - sigma*sqrt(time_to_expiry);
+
+  double rr = exp(rate * h);
+  
+  auto f = [N](double z) {return 0.5 + (z>=0?0.5:-0.5)*pow(1 - exp( -pow( z / (N + 1.0/3 + 0.1 / (N+1)),2 ) *(N+1.0/6)  ),0.5 );};
+
+  double p = f(d2);
+  double pp = f(d1);
+  double u = rr*pp/p;
+  double d = (rr - p*u)/(1-p);
+
+  Lattice L(N+1), V(N+1);
+  L.AdditiveForwardPass(log(spot), log(u), log(d));
+   
+  CallValueFromLog call_value(strike);
+  V.MultiplicativeRollbackEU(L, exp(-rate * h) * p, exp(-rate * h) * (1-p), call_value);
+  
+  return V.points[0][0];
+
+}
+
+double PriceEuropeanPut_LR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
+  double h = time_to_expiry/N;
+
+  double nu = rate - sigma*sigma/2;
+  double rr = exp(rate * h);
+
+  double d1 = (log(spot/strike) + nu*time_to_expiry) / (sigma * sqrt(time_to_expiry));
+  double d2 = d1 - sigma*sqrt(time_to_expiry);
+  
+  auto f = [N](double z) {return 0.5 + (z>=0?0.5:-0.5)*pow(1 - exp( - pow( z / (N + 1.0/3 + (0.1 / (N+1))), 2) *(N+(1.0/6))  ),0.5 );};
+
+  double p = f(d2);
+  double pp = f(d1);
+  double u = rr*pp/p;
+  double d = (rr - p*u)/(1-p);
+
+  Lattice L(N+1), V(N+1);
+  L.AdditiveForwardPass(log(spot), log(u), log(d));
+   
+  PutValueFromLog put_value(strike);
+  V.MultiplicativeRollbackEU(L, exp(-rate * h) * p, exp(-rate * h) * (1-p), put_value);
+  
+  return V.points[0][0];
+
+}
+
 

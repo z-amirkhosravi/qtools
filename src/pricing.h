@@ -103,4 +103,17 @@ double PriceAmericanPut_Trig(double spot, double time_to_expiry, double strike, 
 // Price an American put using the Trigeorgis binomial model
 
 
+double PriceAmericanCall_JKY(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American call using the Trigeorgis binomial model
+
+double PriceAmericanPut_JKY(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American put using the Trigeorgis binomial model
+
+
+double PriceEuropeanCall_LR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American call using the Trigeorgis binomial model
+
+double PriceEuropeanPut_LR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N);
+// Price an American put using the Trigeorgis binomial model
+
 #endif

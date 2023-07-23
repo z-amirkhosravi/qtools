@@ -195,6 +195,58 @@ static PyObject* PriceAmericanPutTrigWrapper(PyObject *self, PyObject *args) {
     return retobj;
 }
 
+static PyObject* PriceAmericanCallJKYWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanCall_JKY(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanPutJKYWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanPut_JKY(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceEuropeanCallLRWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceEuropeanCall_LR(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceEuropeanPutLRWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceEuropeanPut_LR(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
 
 static PyMethodDef qtools_methods[] = {
     { "PriceVanillaEuCall", PriceVanillaEuCallWrapper, METH_VARARGS, "Price a vanilla European call with simple Monte Carlo" },
@@ -209,6 +261,10 @@ static PyMethodDef qtools_methods[] = {
     { "PriceAmericanPutCRR", PriceAmericanPutCRRWrapper, METH_VARARGS, "Price an American put option with the CRR binomial model" },
     { "PriceAmericanCallTrig", PriceAmericanCallTrigWrapper, METH_VARARGS, "Price an American call option with the Trigeorgis binomial model" },
     { "PriceAmericanPutTrig", PriceAmericanPutTrigWrapper, METH_VARARGS, "Price an American put option with the Trigeorgis binomial model" },
+    { "PriceAmericanCallJKY", PriceAmericanCallJKYWrapper, METH_VARARGS, "Price an American call option with the Jabbour-Kramin-Young binomial model" },
+    { "PriceAmericanPutJKY", PriceAmericanPutJKYWrapper, METH_VARARGS, "Price an American put option with the Jabbour-Kramin-Young binomial model" },
+    { "PriceEuropeanCallLR", PriceEuropeanCallLRWrapper, METH_VARARGS, "Price a European call option with the Leisen-Reimer binomial model" },
+    { "PriceEuropeanPutLR", PriceEuropeanPutLRWrapper, METH_VARARGS, "Price a European put option with the Leisen-Reimer binomial model" },
  { NULL, NULL, 0, NULL }
 };
 

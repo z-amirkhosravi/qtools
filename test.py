@@ -5,7 +5,7 @@ from math import exp, log, sqrt
 
 import time
 
-days_in_a_year=365
+days_in_a_year=356
 
 spot = 105
 strike = 100
@@ -13,7 +13,7 @@ tte = 30
 vol = (40/100) * sqrt(1/days_in_a_year)
 rate = exp(log(1.05)/days_in_a_year)-1
 mcsteps = 100000
-layers = 3000
+layers = 4000
 
 print(f"Spot: {spot}, Strike: {strike}, Time to Expiry: {tte}, Volatility: {vol}, Interest Rate: {rate}")
 
@@ -61,6 +61,16 @@ t =  time.time() - t
 print("PriceAmericanPut (Trig): ", price, f" ({t} seconds)")
 
 t = time.time()
+price = PriceAmericanCallJKY(spot, tte, strike, rate, vol, layers)
+t =  time.time() - t
+print("PriceAmericanCall (JKY): ", price, f" ({t} seconds)")
+
+t = time.time()
+price = PriceAmericanPutJKY(spot, tte, strike, rate, vol, layers)
+t =  time.time() - t
+print("PriceAmericanPut (JKY): ", price, f" ({t} seconds)")
+
+t = time.time()
 price = PriceVanillaEuCall(spot, tte, strike, rate, vol, mcsteps)
 t = time.time() - t
 print("PriceVanillaEuCall (MC): ", price, f" ({t} seconds)")
@@ -91,3 +101,13 @@ t = time.time()
 price = BlackScholesEuPut(spot, tte, strike, rate, vol)
 t = time.time() -  t
 print("BlackScholesEuPut: ", price, f" ({t} seconds)")
+
+t = time.time()
+price = PriceEuropeanCallLR(spot, tte, strike, rate, vol, layers)
+t =  time.time() - t
+print("PriceEuropeanCall (LR): ", price, f" ({t} seconds)")
+
+t = time.time()
+price = PriceEuropeanPutLR(spot, tte, strike, rate, vol, layers)
+t =  time.time() - t
+print("PriceEuropeanPut (LR): ", price, f" ({t} seconds)")

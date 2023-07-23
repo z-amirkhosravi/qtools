@@ -131,7 +131,7 @@ void Lattice::AdditiveForwardPass(double seed, double logu) {
 void Lattice::MultiplicativeRollback(Lattice &ref_lattice, double p, double q, FunctionClass &f) {
     long unsigned int n = ref_lattice.size(); 
     if (n!=points.size() || n==0)
-	return;
+	    return;
 
     auto it = points.rbegin();
     auto ref_it = ref_lattice.points.rbegin();
@@ -140,13 +140,33 @@ void Lattice::MultiplicativeRollback(Lattice &ref_lattice, double p, double q, F
       (*it)[i] = f.eval((*ref_it)[i]);
 
     while (++it != points.rend()) {
-	++ref_it;
-	for (long unsigned int i = 0; i < (*it).size(); i++) {
-		double t1 = q * (*(it-1))[i] + p * (*(it-1))[i+1] ;     //  computes the evalue of the derivative
-		double t2 = f.eval((*ref_it)[i]);	                //  computes the the intrinsic value 
-		(*it)[i] = t1 > t2 ? t1 : t2;                           //  sets value to the maximum of the two
-	}
+      ++ref_it;
+      for (long unsigned int i = 0; i < (*it).size(); i++) {
+        double t1 = q * (*(it-1))[i] + p * (*(it-1))[i+1] ;     //  computes the evalue of the derivative
+        double t2 = f.eval((*ref_it)[i]);	                //  computes the the intrinsic value 
+        (*it)[i] = t1 > t2 ? t1 : t2;                           //  sets value to the maximum of the two
+	  }
     }
+}
+
+
+void Lattice::MultiplicativeRollbackEU(Lattice &ref_lattice, double p, double q, FunctionClass &f) {
+  // This is the same as MultiplicativeRollBack(), except it only computes the discounted expected value, so no early expiration, hence European type
+  long unsigned int n = ref_lattice.size(); 
+  if (n!=points.size() || n==0)
+    return;
+
+  auto it = points.rbegin();
+  auto ref_it = ref_lattice.points.rbegin();
+
+  for (long unsigned int i = 0; i < n; i++)                         // sets the terminal nodes to the intrinsic value
+    (*it)[i] = f.eval((*ref_it)[i]);
+
+  while (++it != points.rend()) {
+    ++ref_it;
+    for (long unsigned int i = 0; i < (*it).size(); i++) 
+      (*it)[i] = q * (*(it-1))[i] + p * (*(it-1))[i+1] ;      //  computes the evalue of the derivative
+  }
 }
 
 
