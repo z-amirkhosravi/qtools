@@ -30,8 +30,11 @@ python test.py
 This should output something like the following:
 
 ```
+Parameters:
 Spot: 105, Strike: 100, Time to Expiry: 30, Volatility: 0.02120, Interest Rate: 0.00014
-Using 100000 sample for Monte Carlo, and depth 4000 in binomial tree
+
+Monte Carlo samples: 100000
+Binomial tree depth: 4000
 
 American Calls:
 -------------
