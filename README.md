@@ -38,7 +38,7 @@ The goal is to determine the price $V_t$ of a financial derivative of that stock
 
 All this is to say that there are two steps to computing $V_0$: first, one has to compute all the values $S_t$ by starting from $S_0$ and multiplying by $u$ and $d$ at each branch. This is a _forward pass_ through the tree of possibilities. Then in the second step, one computes $V_0$ by starting from $V_T = X_T$, and making a _backward pass_ through the tree, at each step computing the distribution of $V_t$ for $t$ smaller, until arriving at $t=0$. 
 
-The implementation of the binomial tree model here abstracts this entire process, so that different models from the literature can be computed easily by specifiying the parameters: the intrinsic function $X_t$, the values $p$, $q$, $u$, $d$, plus a discounting factor that depends on interest rates. The models so far implemented are: Cox-Ross-Rubinstein, Jarrow-Rud, Tian and Trigeorgis. I have followed the descriptions given in <a href=https://quant.opengamma.io/Tree-Option-Pricing-Model.pdf>this paper</a> by Yukinori Iwashita.
+The implementation of the binomial tree model here abstracts this entire process, so that different models from the literature can be computed easily by specifiying the parameters: the intrinsic function $X_t$, the values $p$, $q$, $u$, $d$, plus a discounting factor that depends on interest rates. The models so far implemented are: Cox-Ross-Rubinstein, Jarrow-Rud, Tian, Trigeorgis, Jabbour-Kramin-Young, and Leisen-Reimer. I have followed the descriptions given in <a href=https://quant.opengamma.io/Tree-Option-Pricing-Model.pdf>this paper</a> by Yukinori Iwashita.
 
 # Monte Carlo Integration
 
