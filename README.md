@@ -8,7 +8,7 @@ To install the Python package, clone the repository, enter the directory, and ru
 
 ```
 rm -rf build
-python3 setup.py build
+python setup.py build
 ```
 
 This compiles the C++ code and creates a python package called `qtools`. The `Makefile` is configured for `g++`, so it may need to be edited first. After the package is built, it can be installed with:
@@ -21,6 +21,49 @@ Then it can be imported in Python using:
 
 ```
 from qtools import *
+```
+
+To test the package, you can run
+```
+python test.py
+```
+This should output something like the following:
+
+```
+Spot: 105, Strike: 100, Time to Expiry: 30, Volatility: 0.02120, Interest Rate: 0.00014
+Using 100000 sample for Monte Carlo, and depth 4000 in binomial tree
+
+American Calls:
+-------------
+Ad hoc                    7.92388 (0.1221 seconds)
+Tian                      7.92356 (0.0673 seconds)
+Cox-Ross-Rubinstein       7.92387 (0.0679 seconds)
+Trigeorgis                7.92387 (0.0680 seconds)
+Jarrow-Rud                7.92396 (0.0680 seconds)
+Jabbour-Kramin-Young      7.92386 (0.0790 seconds)
+
+American Puts:
+-------------
+Ad hoc                    2.52629 (0.0791 seconds)
+Tian                      2.52599 (0.0788 seconds)
+Cox-Ross-Rubinstein       2.52629 (0.0808 seconds)
+Trigeorgis                2.52629 (0.0811 seconds)
+Jarrow-Rud                2.52638 (0.0681 seconds)
+Jabbour-Kramin-Young      2.52628 (0.0673 seconds)
+
+European Calls:
+-------------
+Monte Carlo (Python)      7.93494 (0.7059 seconds)
+Monte Carlo (C++)         7.93536 (0.0069 seconds)
+B-S formula (Python)      7.92371 (0.0004 seconds)
+Leimer-Reisen             7.92366 (0.0256 seconds)
+
+European Puts:
+-------------
+Monte Carlo (Python)      2.51589 (0.6786 seconds)
+Monte Carlo (C++)         2.52208 (0.0069 seconds)
+B-S formula (Python)      2.51338 (0.0004 seconds)
+Leimer-Reisen             2.51332 (0.0210 seconds)
 ```
 
 #  Binomial Tree Models
