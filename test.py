@@ -12,102 +12,68 @@ strike = 100
 tte = 30
 vol = (40/100) * sqrt(1/days_in_a_year)
 rate = exp(log(1.05)/days_in_a_year)-1
-mcsteps = 100000
+mcsteps = 200000
 layers = 4000
 
-print(f"Spot: {spot}, Strike: {strike}, Time to Expiry: {tte}, Volatility: {vol}, Interest Rate: {rate}")
+def time_and_print(f, desc, *argv):
+    t = time.time()
+    x = f(*argv)
+    t = time.time()-t
+    print("{0:25} {1:.5f} ({2:.4f} seconds)".format(desc,x,t))
 
-print(f"Using {mcsteps} steps in MC, and depth {layers} in binomial tree")
-
-print("C++:")
-t = time.time()
-price = PriceAmericanCall(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanCall (BIN): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanPut(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanPut (BIN): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanCallTian(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanCall (Tian): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanPutTian(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanPut (Tian): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanCallCRR(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanCall (CRR): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanPutCRR(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanPut (CRR): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanCallTrig(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanCall (Trig): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanPutTrig(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanPut (Trig): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanCallJKY(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanCall (JKY): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceAmericanPutJKY(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceAmericanPut (JKY): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceVanillaEuCall(spot, tte, strike, rate, vol, mcsteps)
-t = time.time() - t
-print("PriceVanillaEuCall (MC): ", price, f" ({t} seconds)")
-
-t = time.time()
-price = PriceVanillaEuPut(spot, tte, strike, rate, vol, mcsteps)
-t = time.time() - t
-print("PriceVanillaEuPut (MC): ", price, f" ({t} seconds)")
+print("Parameters:")
+print(f"Spot: {spot}, Strike: {strike}, Time to Expiry: {tte}, Volatility: {vol:.5f}, Interest Rate: {rate:.5f}")
 
 print("")
-print("Python:")
-t = time.time()
-price = SimpleMCEuCall(spot, tte, strike, rate, vol, mcsteps)
-t = time.time() - t
-print("SimpleMCEuCall: ", price, f" ({t} seconds)")
+print(f"Monte Carlo samples: {mcsteps}")
+print(f"Binomial tree depth: {layers}")
 
-t = time.time()
-price = SimpleMCEuPut(spot, tte, strike, rate, vol, mcsteps)
-t = time.time() - t
-print("SimpleMCEuPut: ", price, f" ({t} seconds)")
+print("")
 
-t = time.time()
-price = BlackScholesEuCall(spot, tte, strike, rate, vol)
-t = time.time() -  t
-print("BlackScholesEuCall: ", price, f" ({t} seconds)")
 
-t = time.time()
-price = BlackScholesEuPut(spot, tte, strike, rate, vol)
-t = time.time() -  t
-print("BlackScholesEuPut: ", price, f" ({t} seconds)")
+american_calls = {  PriceAmericanCall: "Ad hoc", 
+                    PriceAmericanCallTian: "Tian",
+                    PriceAmericanCallCRR: "Cox-Ross-Rubinstein",
+                    PriceAmericanCallTrig: "Trigeorgis",
+                    PriceAmericanCallJR: "Jarrow-Rudd",
+                    PriceAmericanCallJKY: "Jabbour-Kramin-Young",
+                    }
 
-t = time.time()
-price = PriceEuropeanCallLR(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceEuropeanCall (LR): ", price, f" ({t} seconds)")
+american_puts = {   PriceAmericanPut: "Ad hoc",
+                    PriceAmericanPutTian: "Tian",
+                    PriceAmericanPutCRR: "Cox-Ross-Rubinstein",
+                    PriceAmericanPutTrig: "Trigeorgis",
+                    PriceAmericanPutJR: "Jarrow-Rudd",
+                    PriceAmericanPutJKY: "Jabbour-Kramin-Young",
+                    }
+print("Model".ljust(27) + "Price".ljust(10) + "Time".ljust(10))
+print("-----------------------------------------------------")
+print("American Calls:")
+print("-------------")
+for call in american_calls:
+    time_and_print(call, american_calls[call], spot, tte, strike, rate, vol, layers)
 
-t = time.time()
-price = PriceEuropeanPutLR(spot, tte, strike, rate, vol, layers)
-t =  time.time() - t
-print("PriceEuropeanPut (LR): ", price, f" ({t} seconds)")
+print("")
+
+print("European Calls:")
+print("-------------")
+time_and_print(SimpleMCEuCall, "Monte Carlo (Python)", spot, tte, strike, rate, vol, mcsteps)
+time_and_print(PriceVanillaEuCall, "Monte Carlo (C++)", spot, tte, strike, rate, vol, mcsteps)
+time_and_print(BlackScholesEuCall, "Black-Scholes (Python)", spot, tte, strike, rate, vol)
+time_and_print(PriceEuropeanCallLR, "Leimer-Reisen", spot, tte, strike, rate, vol, layers)
+
+print("")
+
+print("American Puts:")
+print("-------------")
+for put in american_puts:
+    time_and_print(put, american_puts[put], spot, tte, strike, rate, vol, layers)
+
+print("")
+
+print("European Puts:")
+print("-------------")
+time_and_print(SimpleMCEuPut, "Monte Carlo (Python)", spot, tte, strike, rate, vol, mcsteps)
+time_and_print(PriceVanillaEuPut, "Monte Carlo (C++)", spot, tte, strike, rate, vol, mcsteps)
+time_and_print(BlackScholesEuPut, "Black-Scholes (Python)", spot, tte, strike, rate, vol)
+time_and_print(PriceEuropeanPutLR, "Leimer-Reisen", spot, tte, strike, rate, vol, layers)

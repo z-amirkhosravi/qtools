@@ -195,6 +195,32 @@ static PyObject* PriceAmericanPutTrigWrapper(PyObject *self, PyObject *args) {
     return retobj;
 }
 
+static PyObject* PriceAmericanCallJRWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanCall_JR(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
+static PyObject* PriceAmericanPutJRWrapper(PyObject *self, PyObject *args) {
+    double spot, time_to_expiry, strike, rate, vol, price;
+    PyObject *retobj;
+    long tree_depth;
+
+
+    if (!PyArg_ParseTuple(args, "dddddl", &spot, &time_to_expiry, &strike, &rate, &vol, &tree_depth))
+        return nullptr;
+    price = PriceAmericanPut_JR(spot, time_to_expiry, strike, rate, vol, tree_depth);
+    retobj = PyFloat_FromDouble(price);
+    return retobj;
+}
+
 static PyObject* PriceAmericanCallJKYWrapper(PyObject *self, PyObject *args) {
     double spot, time_to_expiry, strike, rate, vol, price;
     PyObject *retobj;
@@ -261,6 +287,8 @@ static PyMethodDef qtools_methods[] = {
     { "PriceAmericanPutCRR", PriceAmericanPutCRRWrapper, METH_VARARGS, "Price an American put option with the CRR binomial model" },
     { "PriceAmericanCallTrig", PriceAmericanCallTrigWrapper, METH_VARARGS, "Price an American call option with the Trigeorgis binomial model" },
     { "PriceAmericanPutTrig", PriceAmericanPutTrigWrapper, METH_VARARGS, "Price an American put option with the Trigeorgis binomial model" },
+    { "PriceAmericanCallJR", PriceAmericanCallJRWrapper, METH_VARARGS, "Price an American call option with the Jarrow-Rudd binomial model" },
+    { "PriceAmericanPutJR", PriceAmericanPutJRWrapper, METH_VARARGS, "Price an American put option with the Jarrow-Rudd binomial model" },
     { "PriceAmericanCallJKY", PriceAmericanCallJKYWrapper, METH_VARARGS, "Price an American call option with the Jabbour-Kramin-Young binomial model" },
     { "PriceAmericanPutJKY", PriceAmericanPutJKYWrapper, METH_VARARGS, "Price an American put option with the Jabbour-Kramin-Young binomial model" },
     { "PriceEuropeanCallLR", PriceEuropeanCallLRWrapper, METH_VARARGS, "Price a European call option with the Leisen-Reimer binomial model" },
@@ -278,7 +306,7 @@ static struct PyModuleDef qtools = {
 
 PyMODINIT_FUNC PyInit_qtools(void) {
     Py_Initialize();
-    std::cout << "init\n";
+    // std::cout << "init\n";
     return PyModule_Create(&qtools);
 }
 

@@ -289,6 +289,42 @@ double PriceAmericanCall_Trig(double spot, double time_to_expiry, double strike,
 
 }
 
+double PriceAmericanCall_JR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
+  double h = time_to_expiry/N;
+
+  double nu = rate - sigma*sigma/2;
+  double logu = nu * h + sigma * sqrt(h);
+  double logd = nu * h - sigma * sqrt(h);
+  double p = 0.5;
+
+  Lattice L(N+1), V(N+1);
+  L.AdditiveForwardPass(log(spot), logu, logd);
+   
+  CallValueFromLog call_value(strike);
+  V.MultiplicativeRollback(L, exp(-rate * h) * p, exp(-rate * h) * (1-p), call_value);
+  
+  return V.points[0][0];
+
+}
+
+double PriceAmericanPut_JR(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
+  double h = time_to_expiry/N;
+
+  double nu = rate - sigma*sigma/2;
+  double logu = nu * h + sigma * sqrt(h);
+  double logd = nu * h - sigma * sqrt(h);
+  double p = 0.5;
+
+  Lattice L(N+1), V(N+1);
+  L.AdditiveForwardPass(log(spot), logu, logd);
+   
+  PutValueFromLog put_value(strike);
+  V.MultiplicativeRollback(L, exp(-rate * h) * p, exp(-rate * h) * (1-p), put_value);
+  
+  return V.points[0][0];
+
+}
+
 double PriceAmericanPut_Trig(double spot, double time_to_expiry, double strike, double rate, double sigma, long N) {
   double h = time_to_expiry/N;
 
