@@ -44,7 +44,7 @@ Ad hoc                    7.92388 (0.1221 seconds)
 Tian                      7.92356 (0.0673 seconds)
 Cox-Ross-Rubinstein       7.92387 (0.0679 seconds)
 Trigeorgis                7.92387 (0.0680 seconds)
-Jarrow-Rud                7.92396 (0.0680 seconds)
+Jarrow-Rudd               7.92396 (0.0680 seconds)
 Jabbour-Kramin-Young      7.92386 (0.0790 seconds)
 
 European Calls:
@@ -60,7 +60,7 @@ Ad hoc                    2.52629 (0.0791 seconds)
 Tian                      2.52599 (0.0788 seconds)
 Cox-Ross-Rubinstein       2.52629 (0.0808 seconds)
 Trigeorgis                2.52629 (0.0811 seconds)
-Jarrow-Rud                2.52638 (0.0681 seconds)
+Jarrow-Rudd               2.52638 (0.0681 seconds)
 Jabbour-Kramin-Young      2.52628 (0.0673 seconds)
 
 European Puts:
