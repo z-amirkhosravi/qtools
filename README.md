@@ -73,7 +73,8 @@ This is a comparison of some of the pricing methods in the package.
 
 You can edit `test.py` to change the parameters. For example to improve accuracy you can try changing the depth of the binomial trees, or the number of Monte Carlo steps. 
 
-Note: The exact theoretical price of European calls/puts as well as American calls is given by the Black-Scholes formula. Checking the output of the models against that item can be a sort of sanity check. 
+Note: The exact theoretical price of European calls/puts as well as American calls is given by the Black-Scholes formula. Checking the output of the models against that item can be a sort of sanity check. Conversely,
+American puts should always cost a bit more than European ones.
 
 #  Binomial Tree Models
 
@@ -108,5 +109,6 @@ This is simple enough to implement, and I've included both a C++ version in `qto
 Some ways I could improve this in the future:
 - Implement calculating the Greeks
 - Implement non-contant parameters like volatility and interest ratess. There's a paper called "A Binomial Option Pricing Model under Stochastic Volatility and Jump" by C. C-C. Chang and H-C. Fu. Maybe it can be a good starting point.
-- The object oriented structure could use improvement. Right now I have functions called `PriceAmericanCall_CCR` for example. The different models should either be separate classes that interface with the `Lattice` classs. Right now if I want to add a new option type I'd have to recompile the package.
-- I guess to do things completely correctly, there shhould be an `Option` class that inherits from a `Derivative` class, which can be fed into a pricing model class, and so forth. One has to be careful not to go overboard with the abstractions howevver.
+- More generally, implement approximating multiple normal variables. This is needed if the volatility is stochastic, for example.
+- The object oriented structure could use improvement. Right now I have functions called `PriceAmericanCall_CCR` for example. The different models could be separate classes that interface with the `Lattice` class for example. However it's done, the option type should be separate from the computation model.
+- I guess to do things completely correctly, there should be an `Option` class that inherits from a `Derivative` class, which can be fed into a pricing model class, and so forth. One has to be careful not to go overboard with the abstractions howevver.
