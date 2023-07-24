@@ -36,6 +36,8 @@ Spot: 105, Strike: 100, Time to Expiry: 30, Volatility: 0.02120, Interest Rate: 
 Monte Carlo samples: 100000
 Binomial tree depth: 4000
 
+Model                      Price     Time
+-----------------------------------------------------
 American Calls:
 -------------
 Ad hoc                    7.92388 (0.1221 seconds)
