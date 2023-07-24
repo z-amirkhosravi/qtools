@@ -90,7 +90,9 @@ The goal is to determine the price $V_t$ of a financial derivative of that stock
 
 All this is to say that there are two steps to computing $V_0$: first, one has to compute all the values $S_t$ by starting from $S_0$ and multiplying by $u$ and $d$ at each branch. This is a _forward pass_ through the tree of possibilities. Then in the second step, one computes $V_0$ by starting from $V_T = X_T$, and making a _backward pass_ through the tree, at each step computing the distribution of $V_t$ for $t$ smaller, until arriving at $t=0$. 
 
-The implementation of the binomial tree model here abstracts this entire process, so that different models from the literature can be computed easily by specifiying the parameters: the intrinsic function $X_t$, the values $p$, $q$, $u$, $d$, plus a discounting factor that depends on interest rates. The models so far implemented are: Cox-Ross-Rubinstein, Jarrow-Rud, Tian, Trigeorgis, Jabbour-Kramin-Young, and Leisen-Reimer. I have followed the descriptions given in <a href=https://quant.opengamma.io/Tree-Option-Pricing-Model.pdf>this paper</a> by Yukinori Iwashita.
+The implementation of the binomial tree model here abstracts this entire process, so that different models from the literature can be computed easily by specifiying the parameters: the intrinsic function $X_t$, the values $p$, $q$, $u$, $d$, plus a discounting factor that depends on interest rates. The models so far implemented are: Cox-Ross-Rubinstein, Jarrow-Rud, Tian, Trigeorgis, Jabbour-Kramin-Young, and Leisen-Reimer. For these I have followed the descriptions given in <a href=https://quant.opengamma.io/Tree-Option-Pricing-Model.pdf>this paper</a> by Yukinori Iwashita. 
+
+There's also an "Ad Hoc" model, which was my first attempt, and is close to Cox-Ross-Rubinstsein. I don't know what the convergence properties are but it seems to give decent answers so I've kept it in the implementtation.
 
 # Monte Carlo Integration
 
@@ -100,3 +102,11 @@ Since $X_T$ is a function of $S_T$, and $\log (S_T)$ is asssumed normally distri
 When the integral needs to be approximated, aside from the binomial tree model, one can also use Monte Carlo integration, where integration is replaced with averaging over random numbers pulled from a normal distribution.
 
 This is simple enough to implement, and I've included both a C++ version in `qtools` and a pure Python version in `pyqtools.py`. It was surprising to me how fast the C++ implementation turned out to be. The Python version was by far the slowest method, but the same algorithm implemented in C++ was faster than all the binomial tree models, and second only to direct computation by the Black-Scholes formula.
+
+# Ideas
+
+Some ways I could improve this in the future:
+- Implement calculating the Greeks
+- Implement non-contant parameters like volatility and interest ratess. There's a paper called "A Binomial Option Pricing Model under Stochastic Volatility and Jump" by C. C-C. Chang and H-C. Fu. Maybe it can be a good starting point.
+- The object oriented structure could use improvement. Right now I have functions called `PriceAmericanCall_CCR` for example. The different models should either be separate classes that interface with the `Lattice` classs. Right now if I want to add a new option type I'd have to recompile the package.
+- I guess to do things completely correctly, there shhould be an `Option` class that inherits from a `Derivative` class, which can be fed into a pricing model class, and so forth. One has to be careful not to go overboard with the abstractions howevver.
